@@ -1,0 +1,11 @@
+#!/bin/sh
+. .SETUP
+if [ ! -f $1 ]; then
+  echo "" > ${BASIC_TEMP}.listing
+  echo "" > ${BASIC_TEMP}.listdir
+  echo "Error: no such file '$1'"
+  exit 1
+fi
+echo "$1" > ${BASIC_TEMP}.listing
+echo `pwd` > ${BASIC_TEMP}.listdir
+exit 0

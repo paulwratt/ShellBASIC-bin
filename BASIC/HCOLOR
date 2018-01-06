@@ -1,0 +1,22 @@
+#!/bin/sh
+# HCOLOR - created with 'cpbasic'
+. .SETUP
+if [ "$1" = "" ]; then
+  echo "Error: HCOLOR = n"
+  exit 1
+fi
+if [ "`echo "$@" | grep =`" = "" ]; then
+  FC=$(( $@ ))
+else
+  FC=$(( `echo "$@" | tr -d =` ))
+fi
+if [ $FC -lt 1 ]; then
+  echo "Error: HCOLOR = expression T_INTEGER"
+  exit 2
+fi
+echo $FC > "${BASIC_TEMP}.HCOLOR"
+export bas_FC=$FC
+tput setaf $FC
+unset FC
+exit 0
+

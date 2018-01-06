@@ -1,0 +1,15 @@
+CSRLIN
+ returns current cursor line number
+
+OPTIONS:
+ (none)
+
+EXAMPLES:
+ LET y=CSRLIN
+
+NOTES:
+ system variable
+
+RELATED:
+ COLS,LINES,LOCATE,POS(0)
+

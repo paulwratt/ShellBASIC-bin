@@ -1,0 +1,23 @@
+#!/bin/sh
+. .SETUP
+if [ ! "$1" = "" ]; then
+  if [ ! -f "$1" ]; then
+    exit 1
+  fi
+  grep rem "$1"
+  exit 0
+fi
+LISTING=`cat ${BASIC_TEMP}.listing`
+LISTDIR=`cat ${BASIC_TEMP}.listdir`
+if [ "$LISTING" = "" -o "$LISTDIR" = "" ]; then
+  echo ""
+  exit 0
+fi
+cd "$LISTDIR"
+if [ ! -f "$LISTING" ]; then
+  echo "" > ${BASIC_TEMP}.listing
+  echo "" > ${BASIC_TEMP}.listdir
+  exit 0
+fi
+grep rem "$LISTING"
+exit 0

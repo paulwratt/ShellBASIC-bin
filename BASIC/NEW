@@ -1,0 +1,6 @@
+#!/bin/sh
+. .SETUP
+rm -f ${BASIC_TEMP}.??*
+echo "" > ${BASIC_TEMP}.listing
+echo "" > ${BASIC_TEMP}.listdir
+exit 0

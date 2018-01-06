@@ -1,0 +1,15 @@
+POS(0)
+ returns current cursor column number
+
+OPTIONS:
+ (none)
+
+EXAMPLES:
+ LET x=POS(0)
+
+NOTES:
+ system function
+
+RELATED:
+ COLS,CSRLIN,LINES,LOCATE
+

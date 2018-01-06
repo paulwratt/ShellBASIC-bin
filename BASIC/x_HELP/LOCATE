@@ -1,0 +1,14 @@
+LOCATE (line),(column) 
+ locate the cursor at line,column
+
+OPTIONS:
+ (line)   = { 1 >= line <= $LINES }
+ (column) = { 1 >= column <= $COLUMNS }
+
+EXAMPLES:
+ LOCATE 20,10
+ LOCATE 10,20
+
+RELATED:
+ COLS,CSRLIN,LINES,POS(0),PRINT
+

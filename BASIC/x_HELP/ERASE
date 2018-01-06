@@ -1,0 +1,13 @@
+ERASE var
+ un-dimension an variable array 
+
+OPTIONS:
+ (var) = a numeric variable name (A), or a string variable name (A$)
+
+EXAMPES:
+ ERASE lines$
+ ERASE x
+
+RELATED:
+ DIM,LET,REDIM
+

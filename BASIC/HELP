@@ -1,0 +1,15 @@
+#!/bin/sh
+. .SETUP
+echo "HELP (command) [(command) ..]"
+echo " in ${BASIC}x_HELP/(command)"
+echo ""
+if [ "$1" = "" ]; then
+  ls ${BASIC}x_HELP
+  exit 0
+fi
+for I in $@; do
+  echo ""
+  cat ${BASIC}x_HELP/$I|less
+done
+exit 0
+

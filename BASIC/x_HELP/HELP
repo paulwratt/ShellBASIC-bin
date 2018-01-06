@@ -1,0 +1,14 @@
+HELP [(command) [(command)] ..]]
+ display the help text found in /BASIC/HELP_TEXT/(command)
+
+OPTIONS:
+ (command) = a command to display the help text for, optionally space seperated
+
+EXAMPLES:
+ HELP FILES FILES,L
+ HELP EDIT
+ HELP
+
+RELATED:
+ EXAMPLES
+

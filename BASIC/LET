@@ -1,0 +1,6 @@
+#!/bin/sh
+. .SETUP
+VAR=`echo "$1" | cut -d = -s -f 1`
+VAL=`echo "$1" | cut -d = -s -f 2`
+echo "$VAL" > ${BASIC_TEMP}.$VAR
+

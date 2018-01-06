@@ -1,0 +1,14 @@
+DIM var(n)
+ dimension an variable array 
+
+OPTIONS:
+ (n)   = an integer from 0 to 65535
+ (var) = a numeric variable name (A), or a string variable name (A$)
+
+EXAMPES:
+ DIM lines$(24)
+ DIM x(80)
+
+RELATED:
+ ERASE,LET,REDIM
+

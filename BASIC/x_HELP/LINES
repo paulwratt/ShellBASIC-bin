@@ -1,0 +1,15 @@
+LINES
+ returns number of text lines
+
+OPTIONS:
+ (none)
+
+EXAMPLES:
+ LET y=LINES
+
+NOTES:
+ system variable
+
+RELATED:
+ COLS,CSRLIN,LOCATE,POS(0)
+

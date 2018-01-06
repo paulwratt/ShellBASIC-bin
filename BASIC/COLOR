@@ -1,0 +1,86 @@
+#!/bin/sh
+# COLOR - created with 'mkbasic'
+. .SETUP
+. .COLORS
+if [ "$1" = "" ]; then
+  echo "Error: COLOR n[,n][,n]"
+  exit 1
+fi
+FC=$bas_FC
+BC=$bas_BC
+XC=$bas_XC
+OPTS=`echo "$1" | cut --output-delimiter=\   -d , -f 1-`
+O=0
+for OPT in $OPTS; do
+  O=$(($O+1))
+  if [ $O -eq 1 -a ! $OPT = "" ]; then
+    FC=$OPT
+  fi
+  if [ $O -eq 2 -a ! $OPT = "" ]; then
+    BC=$OPT
+  fi
+  if [ $O -eq 3 -a $OPT = "" ]; then
+    echo "Error: COLOR T_INTEGER[,T_INTEGER][,T_INTEGER]"
+    exit 2
+  fi
+  if [ $O -eq 3 ]; then
+    XC=$OPT
+  fi
+done
+if [ ! -x "${BASIC_TEMP}.COLOR" ]; then
+  cat > "${BASIC_TEMP}.COLOR" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$FC"
+EOF
+  chmod 755 "${BASIC_TEMP}.COLOR"
+fi
+if [ ! -x "${BASIC_TEMP}.BGCOLOR" ]; then
+  cat > "${BASIC_TEMP}.BGCOLOR" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$BC"
+EOF
+  chmod 755 "${BASIC_TEMP}.BGCOLOR"
+fi
+if [ ! -x "${BASIC_TEMP}.COLOR$FC" ]; then
+  cat > "${BASIC_TEMP}.COLOR$FC" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$FC"
+EOF
+  chmod 755 "${BASIC_TEMP}.COLOR$FC"
+fi
+if [ ! -x "${BASIC_TEMP}.COLOR$BC" ]; then
+  cat > "${BASIC_TEMP}.COLOR$BC" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$BC"
+EOF
+  chmod 755 "${BASIC_TEMP}.COLOR$BC"
+fi
+if [ ! -x "${BASIC_TEMP}.COLOR$XC" ]; then
+  cat > "${BASIC_TEMP}.COLOR$XC" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$XC"
+EOF
+  chmod 755 "${BASIC_TEMP}.COLOR$XC"
+fi
+echo $FC > "${BASIC_TEMP}.HCOLOR"
+echo $BC > "${BASIC_TEMP}.VCOLOR"
+echo $XC > "${BASIC_TEMP}.XCOLOR"
+export bas_FC=$FC
+export bas_BC=$BC
+export bas_XC=$XC
+tput setaf $FC
+tput setab $BC
+unset FC
+unset BC
+unset XC
+exit 0

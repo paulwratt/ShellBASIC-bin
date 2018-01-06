@@ -1,0 +1,30 @@
+#!/bin/sh
+. .SETUP
+
+x_TERM=`stty -g`
+stty -icanon -echo
+printf "\033[6n"
+#tput `infocmp | xargs | sed 's/\ /\n/g' | grep '\[6n' | cut -d \= -f 1`
+ESCPOS=""
+X=""
+I=0
+while [ ! "$X" = "R" ]; do
+  X=`dd bs=1 count=1 2>/dev/null`
+  I=`expr $I + 1`
+  if [ $I -gt 2 -a ! "$X" = "R" ]; then
+#    ESCPOS="$ESCPOS$X"
+    if [ "$X" = ";" ]; then
+      CSRLIN="$POS"
+      POS=""
+    else
+      POS="$POS$X"
+    fi
+  fi
+done
+stty "$x_TERM"
+#echo "$ESCPOS"
+#CSRLIN=`echo "$ESCPOS" | cut -d \; -s -f 1`
+#POS=`echo "$ESCPOS" | cut -d \; -s -f 2`
+echo "$POS" > "${BASIC_TEMP}.X"
+echo "$CSRLIN" > "${BASIC_TEMP}.Y"
+[ -z "$NE" ] && echo "$CSRLIN" && exit 0

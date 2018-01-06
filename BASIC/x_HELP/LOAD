@@ -1,0 +1,12 @@
+LOAD "program.bas"
+ load a basic program
+
+OPTIONS:
+ (none)
+
+EXAMPLES:
+ LOAD "autoexec.bas"
+
+RELATED:
+ EDIT,INFO,LIST,NEW
+

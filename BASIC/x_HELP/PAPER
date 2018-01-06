@@ -1,0 +1,12 @@
+PAPER color
+ set background color
+
+OPTIONS:
+ (color) = integer color value
+
+EXAMPLES:
+ PAPER 1
+
+RELATED:
+ COLOR,HCOLOR,HPLOT,PEN,PLOR,PRESET,PSET
+

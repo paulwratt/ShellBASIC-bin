@@ -1,0 +1,65 @@
+#!/bin/sh
+if [ "$1" = "--help" -o "$1" = "" ]; then
+  echo "Make BASIC Command"
+  echo " places command 'NAME' in '~/bin', chmod's it, then edit it"
+  echo " links it to '\$BASIC\$NAME', adds '\$BASIC/x_help/\$NAME'"
+  echo " requires '~/bin' in PATH for 'name' to available.  If it's"
+  echo " listed first, it will over-ride '/bin', '/usr/sbin', etc"
+  echo " 'ln -s _path_to_editor_ ~/bin/e' to set editor"
+  echo "usage: mkbasic NAME"
+  exit 0
+fi
+if [ "$BASIC" = "" ]; then
+  echo "Error: 'export BASIC=/BASIC/' not in '/etc/profile'"
+  exit 2
+fi
+F="$HOME/bin/$1"
+if [ -x "$F" ]; then
+  echo "Error: BASIC command '~/bin/$1' already exists"
+  unset F
+  exit 1
+fi
+cat > $F <<EOF
+#!/bin/sh
+# $1 - created with 'mkbasic'
+. .SETUP
+if [ "\$1" = "" ]; then
+  echo "Error: $1 [option]"
+  exit 1
+fi
+
+exit 0
+EOF
+chmod 755 $F
+ln -s "$F" "${BASIC}$1"
+cat > "${BASIC}x_HELP/$1" <<EOF
+$1 [(command) [(command)] ..]]
+ short description
+
+OPTIONS:
+ (command) = a short descroption of the option
+ (none)
+
+EXAMPLES:
+ $1 OPT1,"OPT2"
+ $1 OPT1
+ $1
+
+NOTES:
+ delete if none
+
+RELATED:
+ SOME,THING,MORE
+
+EOF
+chmod 0666 "${BASIC}x_HELP/$1"
+if [ ! -x ~/bin/e ]; then
+  echo "created: '$F'"
+  echo "Error: 'ln -s _path_to_editor_ ~/bin/e' to set editor"
+  exit 2
+fi
+e $F
+e "${BASIC}x_HELP/$1"
+unset F
+exit 0
+

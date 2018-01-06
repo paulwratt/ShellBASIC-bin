@@ -1,0 +1,17 @@
+PLOT x,y
+ set pixel at x,y to color HCOLOR
+
+OPTIONS:
+ (HCOLOR) = set previously
+ (x,y)    = 1 based integer values from the left,top
+
+NOTES:
+ TO operations are not implimented yet
+ 
+EXAMPLES:
+ PLOT 100,100
+
+RELATED:
+ COLOR,HCOLOR,HPLOT,PEN,PAPER,PRESET,PSET
+
+

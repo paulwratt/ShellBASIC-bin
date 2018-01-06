@@ -1,0 +1,31 @@
+PSET [STEP ](x,y)[,color][,operation]
+ pixel set at x,y to color
+
+OPTIONS:
+ (STEP)      = optional relative to current position
+ (x,y)       = 1 based integer values from the left,top
+ (color)     = if no color, use foreground color (bas_FC)
+ (operation) = AND OR PRESET PESET(default) XOR
+
+NOTES:
+ T operations are transparent color 0 related
+ 
+  cur color AND OR PRESET PSET XOR
+   0    0    0   0   1      0   0
+   0    1    0   1   0      1   1
+   1    0    0   1   1      0   1
+   1    1    1   1   0      1   0
+
+EXAMPLES:
+ PSET STEP(12,24),15,TAND
+ PSET STEP(13,25),PRESET
+ PSET STEP(11,23),12
+ PSET STEP(10,20)
+ PSET (121,124),0,XOR
+ PSET (120,123),,TOR
+ PSET (112,241),1
+ PSET (1,80)
+
+RELATED:
+ COLOR,HCOLOR,HPLOT,PEN,PAPER,PLOT,PRESET
+

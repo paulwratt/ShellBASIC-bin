@@ -1,0 +1,13 @@
+INFO [(program)]
+ list currently loaded program, lines with REMarks
+
+OPTIONS:
+ (program) if not supplied use currently loaded program
+
+EXAMPLES:
+ INFO "../MMC/program.bas"
+ INFO
+
+RELATED:
+ EDIT,LIST,LOAD
+

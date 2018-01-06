@@ -1,0 +1,18 @@
+LET (var)=[(expression)|(string)|(value)]
+ assign a value to a variable
+
+OPTIONS:
+ (var)        = numeric variable name (A), or string variable name (A$)
+ (expression) = either a string expression or a numeric expression
+ (string)     = a string of text
+ (value)      = an integer or decimal value
+
+EXAMPLES:
+ LET total$="total lines: "+lines+" in "+file$
+ LET a$="some text"
+ LET kbytes=bytes*8
+ LET y=23
+
+RELATED:
+ DIM,PRINT
+

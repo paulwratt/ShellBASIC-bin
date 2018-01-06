@@ -1,0 +1,18 @@
+PRINT ["(string)"[;][(variable);]["(string)"][;] ..]
+ print to the screen
+
+OPTIONS:
+ (string)   = optional text to print
+ (variable) = optional variable to print
+ (;)        = dont print end of line character
+
+EXAMPLES:
+ PRINT "Total: ";kbytes;"Kb in ";file$
+ PRINT i;" ";
+ PRINT "ok"
+ print ;
+ PRINT
+
+RELATED:
+ USING
+

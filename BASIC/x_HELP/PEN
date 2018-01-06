@@ -1,0 +1,12 @@
+PEN color
+ set foreground color
+
+OPTIONS:
+ (color) = integer color value
+
+EXAMPLES:
+ PEN 15
+
+RELATED:
+ COLOR,HCOLOR,HPLOT,PAPER,PLOT,PRESET,PSET
+

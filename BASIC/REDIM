@@ -1,0 +1,25 @@
+#!/bin/sh
+. .SETUP
+if [ "$1" = "" ]; then
+  echo "Error: REDIM var(n)"
+  exit 1
+fi
+VAR=`echo "$1" | cut -d \( -s -f 1`
+DIM=`echo "$1" | cut -d \) -s -f 1`
+if [ ! -f ${BASIC_TEMP}.$VAR\(0\) ]; then
+  echo "Error: array not found"
+  exit 2
+fi
+J=0
+if [ ! "$DIM" = "0" ]; then
+  J=`seq -s \  0 $DIM`
+fi
+VAL=0
+if [ "`echo "$VAR" | grep $`" = "$VAR" ]; then
+  VAL='\\"\\"'
+fi
+rm -f ${BASIC_TEMP}.$VAR\(*\)
+for I in $J; do
+  echo "$VAL" > ${BASIC_TEMP}.$VAR\($I\)
+done
+exit 0

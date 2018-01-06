@@ -1,0 +1,50 @@
+#!/bin/sh
+if [ "$1" = "--help" -o "$1" = "" ]; then
+  echo "Make BASIC Command HELP file"
+  echo " check for command 'NAME' in '\$BASIC\$NAME'"
+  echo " adds '\$BASIC/x_help/\$NAME', then edits it"
+  echo " 'ln -s _path_to_editor_ ~/bin/e' to set editor"
+  echo "usage: mkbasichelp NAME"
+  exit 0
+fi
+if [ "$BASIC" = "" ]; then
+  echo "Error: 'export BASIC=/BASIC/' not in '/etc/profile'"
+  exit 3
+fi
+if [ ! -x "${BASIC}$1" ]; then
+  echo "Error: BASIC command '${BASIC}$1' does not exist"
+  exit 1
+fi
+if [ -f "${BASIC}x_HELP/$1" ]; then
+  echo "Error: BASIC help '${BASIC}x_HELP/$1' already exists"
+  exit 2
+fi
+cat > "${BASIC}x_HELP/$1" <<EOF
+$1 [(command) [(command)] ..]]
+ short description
+
+OPTIONS:
+ (command) = a short descroption of the option
+ (none)
+
+EXAMPLES:
+ $1 OPT1,"OPT2"
+ $1 OPT1
+ $1
+
+NOTES:
+ delete if none
+
+RELATED:
+ SOME,THING,MORE
+
+EOF
+chmod 0666 "${BASIC}x_HELP/$1"
+if [ ! -x ~/bin/e ]; then
+  echo "created: '$F'"
+  echo "Error: 'ln -s _path_to_editor_ ~/bin/e' to set editor"
+  exit 4
+fi
+e "${BASIC}x_HELP/$1"
+exit 0
+

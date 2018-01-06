@@ -1,0 +1,22 @@
+#!/bin/sh
+. .SETUP
+if [ "$1" = "" ]; then
+  echo "Error: DIM var(n)"
+  exit 1
+fi
+DIM=`echo "$1" | cut -d \) -s -f 1`
+VAR=`echo "$DIM" | cut -d \( -s -f 1`
+DIM=`echo "$DIM" | cut -d \( -s -f 2`
+J=0
+if [ ! "$DIM" = "0" ]; then
+  J=`seq -s \  0 $DIM`
+fi
+VAL=0
+if [ "`echo "$VAR" | grep $`" = "$VAR" ]; then
+  VAL='\\"\\"'
+fi
+rm -f ${BASIC_TEMP}.$VAR\(*\)
+for I in $J; do
+  echo "$VAL" > ${BASIC_TEMP}.$VAR\($I\)
+done
+exit 0

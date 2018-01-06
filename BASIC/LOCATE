@@ -1,0 +1,15 @@
+#!/bin/sh
+# LOCATE - created with 'mkbasic'
+if [ "$1" = "" -o ! "$2" = "" ]; then
+  echo "Error: LOCATE y,x"
+  exit 1
+fi
+if [ ! "`echo "$1" | grep \,`" = "$1" ]; then
+  echo "Error: LOCATE y,x"
+  exit 2
+fi
+POS="$1"
+#echo "${POS%%,*} ${POS##*,}"
+tput cup ${POS%%,*} ${POS##*,}
+unset POS
+exit 0

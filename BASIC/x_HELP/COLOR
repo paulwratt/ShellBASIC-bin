@@ -1,0 +1,18 @@
+COLOR color[,color][,color]
+ change forground,background,border colors
+
+OPTIONS:
+ (color) = integer color value
+
+EXAMPLES:
+ COLOR 15,1,1
+ COLOR 5,0
+ COLOR ,4
+ COLOR 7
+
+NOTES:
+ border color is ignored
+
+RELATED:
+ HCOLOR,HPLOT,PAPER,PEN,PLOT,PRESET,PSET
+

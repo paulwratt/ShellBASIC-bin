@@ -1,0 +1,3 @@
+#!/bin/sh
+echo $COLUMNS
+exit 0

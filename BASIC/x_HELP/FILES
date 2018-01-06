@@ -1,0 +1,14 @@
+FILES [(choice)]
+ display a list of files across the screen (short listing)
+
+OPTIONS:
+ (choice) = optional directory or file list
+
+EXAMPLES
+ FILES "*.bas"
+ FILES "/BASIC/HELP_TEXT/"
+ FILES
+
+RELATED:
+ FILES,L
+

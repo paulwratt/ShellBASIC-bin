@@ -1,0 +1,13 @@
+LIST [(program)]
+ list currently loaded program, through pager
+
+OPTIONS:
+ (program) if not supplied, list currently loaded program
+
+EXAMPLES:
+ LIST "../FILO/program.bas"
+ LIST
+
+RELATED:
+ EDIT,INFO,LOAD
+

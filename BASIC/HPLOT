@@ -1,0 +1,71 @@
+#!/bin/sh
+# HPLOT - created with 'cpbasic'
+. .SETUP
+
+if [ "$1" = "" -o ! "$2" = "" ]; then
+  echo "Error: HPLOT x,y"
+  exit 1
+fi
+if [ "$1" = "TO" -o "$2" = "TO" ]; then
+  echo "Error: TODO: HPLOT x,y TO ..."
+  exit 1
+fi
+
+FC=15; O=0
+PC=$FC; PX=0; PY=0
+if [ -f "${BASIC_TEMP}.HCOLOR" ]; then
+  PC=`cat "${BASIC_TEMP}.HCOLOR"`
+  FC=$PC
+fi
+OPTS=`echo "$1" | cut -d , -s -f 1- --output-delimiter=\ `
+for OPT in $OPTS; do
+  O=$(( $O + 1 ))
+  if [ $O -eq 1 ]; then
+    if [ $OPT -lt 1 ]; then
+      echo "Error: HPLOT T_INTEGER,y"
+      exit 2
+    fi
+    PX=$(( $OPT + $PX ))
+  fi
+  if [ $O -eq 2 ]; then
+    if [ $OPT -lt 1 ]; then
+      echo "Error: HPLOT x,T_INTEGER"
+      exit 2
+    fi
+    PY=$(( $OPT + $PY ))
+  fi
+done
+PW=`fbset | grep geo | xargs | cut -d \  -f 2`
+
+echo $PX > "${BASIC_TEMP}.H"
+echo $PY > "${BASIC_TEMP}.V"
+
+if [ "$PC" = "$FC" ]; then
+  if [ ! -x "${BASIC_TEMP}.COLOR" ]; then
+    cat > "${BASIC_TEMP}.COLOR" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$PC"
+EOF
+    chmod 755 "${BASIC_TEMP}.COLOR"
+  fi
+  CP=`"${BASIC_TEMP}.COLOR"`
+else
+  if [ ! -x "${BASIC_TEMP}.COLOR$PC" ]; then
+    cat > "${BASIC_TEMP}.COLOR$PC" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$PC"
+EOF
+    chmod 755 "${BASIC_TEMP}.COLOR$PC"
+  fi
+  CP=`"${BASIC_TEMP}.COLOR$PC"`
+fi
+
+printf "$(printf '\\%o\\%o\\%o\\%o' $CP 0)" | dd status=none bs=4 seek=$(( ( $PW * $PY ) + $PX )) > /dev/fb0
+#bas /home/sysop/devel/BASIC/d2a.bas $CP 0 | dd status=none bs=4 seek=$(( ( $PW * $PY ) + $PX )) > /dev/fb0
+unset CP; unset PW; unset PX; unset PY; unset PC
+unset O; unset FC
+exit 0

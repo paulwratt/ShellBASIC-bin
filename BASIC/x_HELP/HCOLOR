@@ -1,0 +1,12 @@
+HCOLOR = color
+ set foreground color
+
+OPTIONS:
+ (color) = integer color value
+
+EXAMPLES:
+ HCOLOR = 15
+
+RELATED:
+ COLOR,HPLOT,PAPER,PEN,PLOT,PRESET,PSET
+

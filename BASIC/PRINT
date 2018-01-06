@@ -1,0 +1,17 @@
+#!/bin/sh
+. .SETUP
+if [ "$1" = "" ]; then
+  echo ""
+else
+
+PRINT="$@"
+if [ ! "`echo "$PRINT" | grep \\"\\;`" = "" -o ! "`echo "$PRINT" | grep \\;\\"`" = "" ]; then
+  echo "complex PRINT"
+fi
+echo "$PRINT"
+
+fi
+NE=1
+. CSRLIN
+exit 0
+

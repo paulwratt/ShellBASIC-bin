@@ -1,0 +1,98 @@
+#!/bin/sh
+# PSET - created with 'mkbasic'
+. .SETUP
+
+if [ "$1" = "" ]; then
+  echo "Error: PSET [STEP ](x,y)[,color][,operation]"
+  exit 1
+fi
+if [ ! "$2" = "" -a ! "$1" = "STEP" ]; then
+  echo "Error: PSET [STEP ](x,y)[,color][,operation]"
+  exit 1
+fi
+
+FC=15; STEP=0; O=0
+PC=$FC; PX=0; PY=0 
+if [ -f "${BASIC_TEMP}.HCOLOR" ]; then
+  PC=`cat "${BASIC_TEMP}.HCOLOR"`
+  FC=$PC
+fi
+if [ "$1" = "STEP" ]; then
+  STEP=1
+  OPTS=`echo "$2" | cut -d , -s -f 1- --output-delimiter=\ `
+else
+  OPTS=`echo "$1" | cut -d , -s -f 1- --output-delimiter=\ `
+fi
+for OPT in $OPTS; do
+  O=$(( $O + 1 ))
+  if [ $O -eq 1 -a "`echo "$OPT" | grep STEP`" = "$OPT" ]; then
+    STEP=1
+    OPT=${OPT##*P}
+  fi
+  if [ $O -eq 1 ]; then
+    OPT=${OPT##*\(}
+    if [ $OPT -lt 1 ]; then
+      echo "Error: PSET [STEP ](T_INTEGER,y)[,color][,operation]"
+      exit 2
+    fi
+    PX=$(( $OPT + $PX ))
+  fi
+  if [ $O -eq 2 ]; then
+    OPT=${OPT%*\)}
+    if [ $OPT -lt 1 ]; then
+      echo "Error: PSET [STEP ](x,T_INTEGER)[,color][,operation]"
+      exit 2
+    fi
+    PY=$(( $OPT + $PY ))
+  fi
+  if [ $O -eq 3 ]; then
+    OPT=${OPT%*\)}
+    if [ $OPT -lt 1 ]; then
+      echo "Error: PSET [STEP ](x,y)[,T_INTEGER][,operation]"
+      exit 2
+    fi
+    PC=$OPT
+  fi
+done
+PW=`fbset | grep geo | xargs | cut -d \  -f 2`
+
+if [ $STEP -eq 1 ]; then
+  if [ -f "${BASIC_TEMP}.H" ]; then
+    PX=$(( `cat "${BASIC_TEMP}.H"` + $PX ))
+  fi
+  if [ -f "${BASIC_TEMP}.V" ]; then
+    PY=$(( `cat "${BASIC_TEMP}.V"` + $PY ))
+  fi
+fi
+echo $PX > "${BASIC_TEMP}.H"
+echo $PY > "${BASIC_TEMP}.V"
+
+if [ "$PC" = "$FC" ]; then
+  if [ ! -x "${BASIC_TEMP}.COLOR" ]; then
+    cat > "${BASIC_TEMP}.COLOR" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$PC"
+EOF
+    chmod 755 "${BASIC_TEMP}.COLOR"
+  fi
+  CP=`"${BASIC_TEMP}.COLOR"`
+else
+  if [ ! -x "${BASIC_TEMP}.COLOR$PC" ]; then
+    cat > "${BASIC_TEMP}.COLOR$PC" <<EOF
+#!/bin/sh
+basCOLORS_DONE=0
+. .COLORS
+echo "\$fb_COLOR$PC"
+EOF
+    chmod 755 "${BASIC_TEMP}.COLOR$PC"
+  fi
+  CP=`"${BASIC_TEMP}.COLOR$PC"`
+fi
+
+printf "$(printf '\\%o\\%o\\%o\\%o' $CP 0)" | dd status=none bs=4 seek=$(( ( $PW * $PY ) + $PX )) > /dev/fb0
+#bas /home/sysop/devel/BASIC/d2a.bas $CP 0 | dd status=none bs=4 seek=$(( ( $PW * $PY ) + $PX )) > /dev/fb0
+unset CP; unset PW; unset PX; unset PY; unset PC
+unset O; unset STEP; unset BC
+exit 0

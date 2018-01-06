@@ -1,0 +1,13 @@
+#!/bin/sh
+. .SETUP
+if [ "$1" = "" ]; then
+  echo "Error: ERASE var"
+  exit 1
+fi
+VAR=$1
+f [ ! -f ${BASIC_TEMP}.$VAR\(0\) ]; then
+  echo "Error: array not found"
+  exit 2
+fi
+rm -f ${BASIC_TEMP}.$VAR\(*\)
+exit 0

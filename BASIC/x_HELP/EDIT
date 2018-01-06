@@ -1,0 +1,18 @@
+EDIT [(line munber)] [(basic program)]
+ edit currently loaded basic program
+
+OPTIONS:
+ (line number)   = an optional integer, the program line number N, not the Nth line
+ (basic program) = if given, that will be edited instead of the currently loaded program
+
+EXAMPLES:
+ EDIT 9 autoexec-orig.bas
+ EDIT 1000
+ EDIT
+
+NOTES:
+ to set the editor, "export EDITOR=/usr/bin/vim.tiny" in '/etc/profile'
+
+RELATED:
+ INFO,LIST,LOAD,NEW
+

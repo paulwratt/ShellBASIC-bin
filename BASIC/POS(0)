@@ -1,0 +1,6 @@
+#!/bin/sh
+NE=1
+. CSRLIN
+echo "$POS"
+exit 0
+

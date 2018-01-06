@@ -1,0 +1,15 @@
+COLS
+ returns number of text columns
+
+OPTIONS:
+ (none)
+
+EXAMPLES:
+ LET x=COLS
+
+NOTES:
+ system variable
+
+RELATED:
+ CSRLIN,LINES,LOCATE,POS(0)
+

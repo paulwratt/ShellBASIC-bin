@@ -1,0 +1,15 @@
+#!/bin/sh
+# ebh - created with 'mkshcmd'
+if [ "$1" = "--help" -o "$1" = "" ]; then
+  echo "Edit BASIC HELP file"
+  echo " edit HELP file '\${BASIC}x_HELP/COMMAND'"
+  echo " '~/bin/e' must be linked to text editor"
+  echo "usage: ebh COMMAND"
+  exit 0
+fi
+if [ ! -f "${BASIC}x_HELP/$1" ]; then
+  echo "Error: '$1' does not exist"
+  exit 1
+fi
+~/bin/e "${BASIC}x_HELP/$1"
+exit 0

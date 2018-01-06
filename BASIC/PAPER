@@ -1,0 +1,18 @@
+#!/bin/sh
+# PAPER - created with 'cpbasic'
+. .SETUP
+if [ "$1" = "" ]; then
+  echo "Error: PAPER n"
+  exit 1
+fi
+if [ $1 -lt 1 ]; then
+  echo "Error: PAPER T_INTEGER"
+  exit 2
+fi
+BC=$1
+echo $1 > "${BASIC_TEMP}.VCOLOR"
+export bas_BC=$BC
+tput setab $BC
+unset BC
+exit 0
+

@@ -1,0 +1,46 @@
+#!/bin/sh
+. .SETUP
+LISTING=`cat ${BASIC_TEMP}.listing`
+LISTDIR=`cat ${BASIC_TEMP}.listdir`
+if [ "$LISTING" = "" ]; then
+  E="Error: no program found, LOAD \"program.bas\""
+  if [ "$1" = "" ]; then
+    echo "$E"
+    exit 2
+  fi
+  if [ "$2" = "" -a ! -f "$1" ]; then
+    echo "$E"
+    exit 2
+  fi
+  unset E
+fi
+EDIT=$EDITOR
+if [ "$EDIT" = "" ]; then
+  echo "Error: missing from '/etc/profile': export EDITOR=/usr/bin/vim"
+  exit 3
+fi
+if [ "$1" = "" ]; then
+  cd "$LISTDIR"
+  $EDIT "$LISTING"
+  exit 0
+fi
+if [ ! -f "$1" ]; then
+  if [ ! "$2" = "" -a ! -f "$2" ]; then
+    echo "Error: file not found '$1'"
+    exit 1
+  fi
+  FILE="$LISTING"
+  if [ ! "$2" = "" ]; then
+    FILE="$2"
+  else
+    cd "$LISTDIR"
+  fi
+  L=`lineno $1 $FILE`
+  ED=`basename $EDIT`
+  if [ "$ED" = "vi" -o "$ED" = "vim" -o "$ED" = "vim.tiny" ]; then
+    $EDIT +$L "$FILE"
+    exit 0
+  fi
+fi
+$EDIT "$1"
+exit 0

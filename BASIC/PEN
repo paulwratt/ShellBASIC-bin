@@ -1,0 +1,18 @@
+#!/bin/sh
+# PEN - created with 'mkbasic'
+. .SETUP
+if [ "$1" = "" ]; then
+  echo "Error: PEN n"
+  exit 1
+fi
+if [ $1 -lt 1 ]; then
+  echo "Error: PEN T_INTEGER"
+  exit 2
+fi
+FC=$1
+echo $1 > "${BASIC_TEMP}.HCOLOR"
+export bas_FC=$FC
+tput setaf $FC
+unset FC
+exit 0
+

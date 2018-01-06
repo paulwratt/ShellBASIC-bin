@@ -1,0 +1,12 @@
+NEW
+ clear currently loaded program, delete variables
+
+OPTIONS:
+ (none)
+
+EXAMPLES:
+ NEW
+
+RELATED:
+ LOAD
+
